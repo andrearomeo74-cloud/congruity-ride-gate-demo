@@ -18,7 +18,10 @@ def evaluate_ride(data: RideInput):
     energy_cost = total_km * data.cost_per_km
     total_system_cost = energy_cost + data.impact_cost_eur + data.structural_cost_eur
 
-    congruity_score = data.price_eur / total_system_cost if total_system_cost > 0 else 0
+    if total_system_cost == 0:
+        congruity_score = 0
+    else:
+        congruity_score = data.price_eur / total_system_cost
 
     if congruity_score > 1.0:
         decision = "EXECUTE"
